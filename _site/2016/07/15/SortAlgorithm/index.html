@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="这里是 @Painter">
+    <meta name="keywords" content="厂里搬砖🧱的">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="数据结构之排序算法(java) - Painter的博客 | Painter Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="">
+    
+    <meta property="article:published_time" content=" 2016-07-15T00:00:00Z">
+    
+    
+    
+    <meta property="article:tag" content="数据结构">
+    
+    
+    <meta property="og:image" content="http://localhost:4002https://github.com/Huxpro.png">
+    <meta property="og:url" content="http://localhost:4002/2016/07/15/SortAlgorithm/">
+    <meta property="og:site_name" content="Painter的博客 | Painter Blog">
+
+    <title>数据结构之排序算法(java) - Painter的博客 | Painter Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4002/2016/07/15/SortAlgorithm/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Painter</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+
+
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">数据结构</a>
+                        
+                    </div>
+                    <h1>数据结构之排序算法(java)</h1>
+                    
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by Painter on July 15, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<ul id="markdown-toc">
+  <li><a href="#一排序算法" id="markdown-toc-一排序算法">一、排序算法</a>    <ul>
+      <li><a href="#1-插入排序" id="markdown-toc-1-插入排序">1. 插入排序</a>        <ul>
+          <li><a href="#11-直接插入排序" id="markdown-toc-11-直接插入排序">1.1 ＊直接插入排序＊</a>            <ul>
+              <li><a href="#111-思想" id="markdown-toc-111-思想">1.1.1 思想</a></li>
+              <li><a href="#112-代码" id="markdown-toc-112-代码">1.1.2 代码</a></li>
+              <li><a href="#113-算法分析" id="markdown-toc-113-算法分析">1.1.3 算法分析</a></li>
+            </ul>
+          </li>
+          <li><a href="#12-折半插入排序" id="markdown-toc-12-折半插入排序">1.2 ＊折半插入排序＊</a>            <ul>
+              <li><a href="#121-思想" id="markdown-toc-121-思想">1.2.1 思想</a></li>
+              <li><a href="#122-代码" id="markdown-toc-122-代码">1.2.2 代码</a></li>
+              <li><a href="#123-算法分析" id="markdown-toc-123-算法分析">1.2.3 算法分析</a></li>
+            </ul>
+          </li>
+          <li><a href="#13-希尔排序shellsort" id="markdown-toc-13-希尔排序shellsort">1.3 希尔排序（shellsort)</a>            <ul>
+              <li><a href="#131-思想" id="markdown-toc-131-思想">1.3.1 思想</a></li>
+              <li><a href="#132-代码" id="markdown-toc-132-代码">1.3.2 代码</a></li>
+              <li><a href="#133-算法分析" id="markdown-toc-133-算法分析">1.3.3 算法分析</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#2-交换排序" id="markdown-toc-2-交换排序">2. 交换排序</a>        <ul>
+          <li><a href="#21-冒泡排序" id="markdown-toc-21-冒泡排序">2.1 冒泡排序</a>            <ul>
+              <li><a href="#211-思想" id="markdown-toc-211-思想">2.1.1 思想</a></li>
+              <li><a href="#212-代码" id="markdown-toc-212-代码">2.1.2 代码</a></li>
+              <li><a href="#213-算法分析" id="markdown-toc-213-算法分析">2.1.3 算法分析</a></li>
+            </ul>
+          </li>
+          <li><a href="#22-快速排序" id="markdown-toc-22-快速排序">2.2 快速排序</a>            <ul>
+              <li><a href="#221-思想" id="markdown-toc-221-思想">2.2.1 思想</a></li>
+              <li><a href="#222-代码" id="markdown-toc-222-代码">2.2.2 代码</a></li>
+              <li><a href="#223-算法分析" id="markdown-toc-223-算法分析">2.2.3 算法分析</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#3-选择排序" id="markdown-toc-3-选择排序">3. 选择排序</a>        <ul>
+          <li><a href="#31-简单选择排序" id="markdown-toc-31-简单选择排序">3.1 简单选择排序</a>            <ul>
+              <li><a href="#311-思路" id="markdown-toc-311-思路">3.1.1 思路：</a></li>
+              <li><a href="#312-代码" id="markdown-toc-312-代码">3.1.2 代码：</a></li>
+              <li><a href="#313-算法分析" id="markdown-toc-313-算法分析">3.1.3 算法分析：</a></li>
+            </ul>
+          </li>
+          <li><a href="#32-堆排序" id="markdown-toc-32-堆排序">3.2 堆排序</a>            <ul>
+              <li><a href="#321-思路" id="markdown-toc-321-思路">3.2.1 思路</a></li>
+              <li><a href="#322-代码" id="markdown-toc-322-代码">3.2.2 代码</a></li>
+              <li><a href="#323-算法分析" id="markdown-toc-323-算法分析">3.2.3 算法分析：</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#4-归并排序" id="markdown-toc-4-归并排序">4. 归并排序</a>        <ul>
+          <li><a href="#41-二路归并排序" id="markdown-toc-41-二路归并排序">4.1 二路归并排序</a>            <ul>
+              <li><a href="#411-思路" id="markdown-toc-411-思路">4.1.1 思路</a></li>
+              <li><a href="#412-代码" id="markdown-toc-412-代码">4.1.2 代码</a></li>
+              <li><a href="#413-算法分析" id="markdown-toc-413-算法分析">4.1.3 算法分析</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#5-基数排序" id="markdown-toc-5-基数排序">5. 基数排序</a>        <ul>
+          <li><a href="#511-算法分析" id="markdown-toc-511-算法分析">5.1.1 算法分析</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#二排序算法的对比" id="markdown-toc-二排序算法的对比">二、排序算法的对比</a>    <ul>
+      <li><a href="#1-时间复杂度" id="markdown-toc-1-时间复杂度">1. 时间复杂度</a></li>
+      <li><a href="#2-空间复杂度" id="markdown-toc-2-空间复杂度">2. 空间复杂度：</a></li>
+      <li><a href="#3-稳定性" id="markdown-toc-3-稳定性">3. 稳定性</a></li>
+      <li><a href="#4-其他性质" id="markdown-toc-4-其他性质">4. 其他性质</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="一排序算法">一、排序算法</h1>
+
+<h2 id="1-插入排序">1. 插入排序</h2>
+
+<h3 id="11-直接插入排序">1.1 ＊直接插入排序＊</h3>
+
+<h4 id="111-思想">1.1.1 思想</h4>
+
+<ul>
+  <li>每次取剩下的一个元素插入到已经有序的序列中．</li>
+</ul>
+
+<h4 id="112-代码">1.1.2 代码</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">InsertSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR INPUT"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+	
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+		
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+			<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+			<span class="n">j</span><span class="o">--;</span>
+		<span class="o">}</span>
+		
+		<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="113-算法分析">1.1.3 算法分析</h4>
+<ul>
+  <li>最好情况下：每次循环，内层都不需要比较，只有外层循环的常量级操作，时间复杂度为$O(n)$</li>
+  <li>最坏情况下：内层循环每次都要比较i次，故总的执行次数是：1+2+3+…+n=n*(n-1)/2，故时间复杂度为$O(n^2)$</li>
+  <li>最后平均时间复杂度为：$O(n^2)$</li>
+  <li>空间复杂度：$O(1)$</li>
+</ul>
+
+<h3 id="12-折半插入排序">1.2 ＊折半插入排序＊</h3>
+
+<h4 id="121-思想">1.2.1 思想</h4>
+
+<ul>
+  <li>基本思想与直接插入是一样的，区别在于寻找插入位置的方法不同，折半插入排序是采用折半查找来寻找插入位置的．</li>
+</ul>
+
+<h4 id="122-代码">1.2.2 代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">halfInsertSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR INPUT"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+		
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		
+		<span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">high</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">){</span>
+			<span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="o">(</span><span class="n">low</span><span class="o">+</span><span class="n">high</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+			
+			<span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">m</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="o">){</span>
+				<span class="n">low</span> <span class="o">=</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+			<span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">m</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="o">){</span>
+				<span class="n">high</span> <span class="o">=</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+			<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+				<span class="n">idx</span> <span class="o">=</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">low</span> <span class="o">&gt;</span> <span class="n">high</span><span class="o">){</span>
+			<span class="n">idx</span> <span class="o">=</span> <span class="n">high</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">idx</span><span class="o">;</span> <span class="n">j</span><span class="o">--){</span>
+			<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+		<span class="o">}</span>
+		
+		<span class="n">arr</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="123-算法分析">1.2.3 算法分析</h4>
+
+<ul>
+  <li>外层循环为n－１次，内层循环是折半查找，</li>
+  <li>最好情况是：复杂度为$O(\log n)$.故总的时间复杂度为$O(n\log n)$；最坏情况是$O(n^2)$;平均情况为$O(n^2)$．</li>
+  <li>空间复杂度为：$O(1)$</li>
+</ul>
+
+<h3 id="13-希尔排序shellsort">1.3 希尔排序（shellsort)</h3>
+
+<p>希尔排序，又称缩小增量排序，其本质还是插入排序，只不过将待排序的序列按某种规则分为几个子序列，分别对这几个子序列进行直接插入排序．这个规则就是增量</p>
+
+<h4 id="131-思想">1.3.1 思想</h4>
+
+<ul>
+  <li>比如对序列：49, 38, 65, 97, 76, 13, 27, 49</li>
+  <li>先选择３为增量，则得到序列１：49, 97, 27;序列２：38,76, 49;序列３：65, 13</li>
+  <li>分别对这三个使用直接插入排序，序列１：27,49,97;序列２：38,49,76;序列３：13,65</li>
+  <li>将三个序列合并起来：27,38,13,49,49,65,97,76</li>
+  <li>这就是一趟希尔排序了．接下来，再也２（或１）为增量进行一趟希而排序</li>
+</ul>
+
+<h4 id="132-代码">1.3.2 代码</h4>
+
+<h4 id="133-算法分析">1.3.3 算法分析</h4>
+
+<ul>
+  <li>平均时间复杂度：$O(n\log n)$</li>
+  <li>空间复杂度：$O(1)$</li>
+</ul>
+
+<h2 id="2-交换排序">2. 交换排序</h2>
+
+<h3 id="21-冒泡排序">2.1 冒泡排序</h3>
+
+<h4 id="211-思想">2.1.1 思想</h4>
+
+<ul>
+  <li>每次通过一系列的交换动作，将最大（或最小)的数字冒出来.终止条件是一趟排序过程中没有发生元素交换</li>
+</ul>
+
+<h4 id="212-代码">2.1.2 代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">BubbleSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error input"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">--){</span>
+		
+		<span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]){</span>
+				<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+				<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">];</span>
+				<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+				
+				<span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="k">if</span><span class="o">(</span><span class="n">flag</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="213-算法分析">2.1.3 算法分析</h4>
+
+<ul>
+  <li>时间复杂度：最好$O(n)$最坏$O(n^2)$平均$O(n^2)$</li>
+  <li>空间复杂度：$O(1)$</li>
+</ul>
+
+<h3 id="22-快速排序">2.2 快速排序</h3>
+
+<h4 id="221-思想">2.2.1 思想</h4>
+
+<ul>
+  <li>快速排序也是＂交换＂类的排序，它的基本思想是找出一个枢纽，使得在它左边的比它小，右边的比它大．</li>
+</ul>
+
+<h4 id="222-代码">2.2.2 代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">QuickSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">l</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR INPUT"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">){</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">l</span><span class="o">];</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="o">){</span>
+			<span class="k">while</span><span class="o">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+				<span class="n">j</span><span class="o">--;</span>
+			<span class="o">}</span>
+			
+			<span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">){</span>
+				<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+				<span class="n">i</span><span class="o">++;</span>
+			<span class="o">}</span>
+			
+			
+			<span class="k">while</span><span class="o">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+				<span class="n">i</span><span class="o">++;</span>
+			<span class="o">}</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">){</span>
+				
+				<span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+				<span class="n">j</span><span class="o">--;</span>
+			<span class="o">}</span>
+			
+		<span class="o">}</span>
+		
+		<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+		<span class="nc">QuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">l</span><span class="o">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+		<span class="nc">QuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>另外一个写法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kt">int</span> <span class="nf">Partition</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">){</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="o">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span><span class="c1">//随机选择一个作为标杆的数字</span>
+
+
+    <span class="c1">//将标杆放在数组最后一位</span>
+<span class="c1">//        System.out.println(arr.toString());</span>
+<span class="c1">//        System.out.println(arr[index]);</span>
+<span class="c1">//        System.out.println(arr[end]);</span>
+    <span class="kt">char</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">];</span> <span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">];</span> <span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">small</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span><span class="c1">//small用来存储从右到左第一个小于标杆的数字的下标</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">;</span> <span class="n">index</span><span class="o">++){</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">]){</span><span class="c1">//如果小于标杆</span>
+            <span class="n">small</span><span class="o">++;</span><span class="c1">//更新第一个小的</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">small</span> <span class="o">!=</span> <span class="n">index</span><span class="o">){</span><span class="c1">//如果当前遍历的不是第一个小的</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">];</span><span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">small</span><span class="o">];</span><span class="n">arr</span><span class="o">[</span><span class="n">small</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span><span class="c1">//将当前遍历的数字放在第一个小的位置上</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">//由于small指示的是从右到左第一个小于标杆的，而此时标杆还放在数组最后，因此，应该将标杆放在small后面一位。</span>
+    <span class="n">small</span><span class="o">++;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">small</span><span class="o">];</span><span class="n">arr</span><span class="o">[</span><span class="n">small</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">];</span> <span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+
+    <span class="k">return</span> <span class="n">small</span><span class="o">;</span><span class="c1">//返回位置为所选择的标杆最后的位置</span>
+
+
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">QuickSort</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">){</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="o">){</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="nc">Partition</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">&gt;</span> <span class="n">start</span><span class="o">){</span>
+        <span class="nc">QuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">){</span>
+        <span class="nc">QuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="223-算法分析">2.2.3 算法分析</h4>
+
+<ul>
+  <li>时间复杂度：最好$O(n\log_2 n)$，平均$O(n\log_2 n)$，最坏：$O(n^2)$</li>
+  <li>空间复杂度$O(\log_2 n)$</li>
+  <li>快速排序是所有排序算法中最好的．</li>
+</ul>
+
+<h2 id="3-选择排序">3. 选择排序</h2>
+
+<h3 id="31-简单选择排序">3.1 简单选择排序</h3>
+
+<h4 id="311-思路">3.1.1 思路：</h4>
+
+<ul>
+  <li>简单选择排序采用最简单的选择方式，从头至尾顺序扫描序列，找出最小的一个记录，和第一个记录交换，接着从剩下的记录中继续这种选择和交换，最终使序列有序．</li>
+</ul>
+
+<h4 id="312-代码">3.1.2 代码：</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">SimpleSelectSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+	
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR INPUT"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		
+		<span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">min</span><span class="o">){</span>
+				<span class="n">min</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+				<span class="n">idx</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="n">arr</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+		<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">min</span><span class="o">;</span>
+		
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="313-算法分析">3.1.3 算法分析：</h4>
+
+<ul>
+  <li>时间复杂度：$O(n^2)$</li>
+  <li>空间复杂度：$O(1)$</li>
+</ul>
+
+<h3 id="32-堆排序">3.2 堆排序</h3>
+
+<h4 id="321-思路">3.2.1 思路</h4>
+
+<p>将序列调整成一个堆．</p>
+
+<h4 id="322-代码">3.2.2 代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+</pre></td><td class="rouge-code"><pre><span class="cm">/**
+* 本函数完成对在数组Ｒ[low]到Ｒ[high]范围内对在位置low上的结点进行调整
+* @param arr
+* @param low
+* @param high
+*/</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">shift</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">high</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+		<span class="k">return</span><span class="o">;</span>
+		
+	<span class="o">}</span>
+	
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span><span class="c1">//arr[j]是arr[i]的左孩子结点</span>
+	<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="k">while</span><span class="o">(</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">){</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">high</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">]){</span><span class="c1">//若右孩子较大，则把j指向右孩子</span>
+			<span class="n">j</span><span class="o">++;</span>						<span class="c1">//j变为2*i+1</span>
+		<span class="o">}</span>
+		
+		<span class="k">if</span><span class="o">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span><span class="c1">//将Ｒ[j]调整到双亲位置上</span>
+			<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+			<span class="n">i</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span>
+			<span class="n">j</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span>
+		<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+			<span class="k">break</span><span class="o">;</span><span class="c1">//调整结束</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	
+	<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span><span class="c1">//被调整结点的值放入最终位置</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+ * 堆排序函数
+ * @param arr
+ */</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">heapSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span><span class="c1">//输入参数的非法性检查</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR INPUT"</span><span class="o">);</span>
+		<span class="k">return</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+	
+	<span class="k">for</span><span class="o">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--){</span><span class="c1">//建立初始堆</span>
+		<span class="n">shift</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="k">for</span><span class="o">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">--){</span><span class="c1">//进行n-1次循环完成堆排序</span>
+		<span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+		<span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+		<span class="n">shift</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span><span class="c1">//在减少了１个元素的无序序列中进行调整</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="323-算法分析">3.2.3 算法分析：</h4>
+
+<ul>
+  <li>时间复杂度：$O(n\log _2 n)$</li>
+  <li>空间复杂度：$O(1)$</li>
+</ul>
+
+<h2 id="4-归并排序">4. 归并排序</h2>
+
+<h3 id="41-二路归并排序">4.1 二路归并排序</h3>
+
+<h4 id="411-思路">4.1.1 思路</h4>
+
+<ul>
+  <li>初始状态是每个元素是一个子序列，然后两两合并，形成了几个两个元素的子序列，．．．．，依次合并下去，直到合并为一个有序序列．</li>
+</ul>
+
+<h4 id="412-代码">4.1.2 代码</h4>
+
+<h4 id="413-算法分析">4.1.3 算法分析</h4>
+
+<ul>
+  <li>时间复杂度：$O(n\log _2 n)$</li>
+  <li>空间复杂度：$O(n)$</li>
+</ul>
+
+<h2 id="5-基数排序">5. 基数排序</h2>
+
+<h4 id="511-算法分析">5.1.1 算法分析</h4>
+
+<ul>
+  <li>时间复杂度：$O(d(n+r_d))$</li>
+  <li>空间复杂度：$O(r_d)$</li>
+</ul>
+
+<h1 id="二排序算法的对比">二、排序算法的对比</h1>
+
+<h2 id="1-时间复杂度">1. 时间复杂度</h2>
+
+<ul>
+  <li>＂快些以$O(n\log _2 n)$的速度归队＂</li>
+  <li>即快，希，归，堆都是$O(n\log _2 n)$，其他都是$O(n^2)$，基数排序例外，是$O(d(n+r_d))$</li>
+</ul>
+
+<h2 id="2-空间复杂度">2. 空间复杂度：</h2>
+
+<ul>
+  <li>快排$O(\log _2n)$</li>
+  <li>归并$O(n)$</li>
+  <li>基数$O(r_d)$</li>
+  <li>其他$O(1)$</li>
+</ul>
+
+<h2 id="3-稳定性">3. 稳定性</h2>
+
+<ul>
+  <li>＂心情不稳定，快些找一堆朋友聊天吧＂</li>
+  <li>即不稳定的有：快，希，堆</li>
+</ul>
+
+<h2 id="4-其他性质">4. 其他性质</h2>
+
+<ol>
+  <li>直接插入排序，初始基本有序情况下，是$O(n)$</li>
+  <li>冒泡排序，初始基本有序情况下，是$O(n)$</li>
+  <li>快排在初始状态越差的情况下算法效果越好．</li>
+  <li>堆排序适合记录数量比较大的时候，从n个记录中选择k个记录．</li>
+  <li>经过一趟排序，元素可以在它最终的位置的有：交换类的（冒泡，快排），选择类的（简单选择，堆）</li>
+  <li>比较次数与初始序列无关的是：简单选择与折半插入</li>
+  <li>排序趟数与原始序列有关的是：交换类的（冒泡和快排）</li>
+</ol>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/09/29/matplotlibLearn/" data-toggle="tooltip" data-placement="top" title="python之matplotlib学习">
+                        Previous<br>
+                        <span>python之matplotlib学习</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/04/BaiduInterviewAboutDataMining/" data-toggle="tooltip" data-placement="top" title="百度数据挖掘实习生一面">
+                        Next<br>
+                        <span>百度数据挖掘实习生一面</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E8%AF%AD%E8%A8%80"
+                    title="语言"
+                    rel="9">语言</a>
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E6%97%A5%E8%AF%AD"
+                    title="日语"
+                    rel="9">日语</a>
+        
+                <a data-sort="0035" 
+                    href="/archive/?tag=linux"
+                    title="linux"
+                    rel="7">linux</a>
+        
+                <a data-sort="0039" 
+                    href="/archive/?tag=%E5%8D%9A%E5%AE%A2"
+                    title="博客"
+                    rel="3">博客</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E5%B7%A5%E5%85%B7"
+                    title="工具"
+                    rel="2">工具</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"
+                    title="数据挖掘"
+                    rel="2">数据挖掘</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"
+                    title="数据结构"
+                    rel="2">数据结构</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E9%9D%A2%E7%BB%8F"
+                    title="面经"
+                    rel="2">面经</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=Latex"
+                    title="Latex"
+                    rel="2">Latex</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2016/07/15/SortAlgorithm";
+    var disqus_url = "http://localhost:4002/2016/07/15/SortAlgorithm/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/dearLilian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.linkedin.com/in/wenbao-li-526553ab">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; Painter 2023
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-88738012-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

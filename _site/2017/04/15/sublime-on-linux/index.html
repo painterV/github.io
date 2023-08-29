@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="这里是 @Painter">
+    <meta name="keywords" content="厂里搬砖🧱的">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="linux下的sublime安装与配置 - Painter的博客 | Painter Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="目录
+">
+    
+    <meta property="article:published_time" content=" 2017-04-15T00:00:00Z">
+    
+    
+    
+    <meta property="article:tag" content="linux">
+    
+    
+    <meta property="og:image" content="http://localhost:4002https://github.com/Huxpro.png">
+    <meta property="og:url" content="http://localhost:4002/2017/04/15/sublime-on-linux/">
+    <meta property="og:site_name" content="Painter的博客 | Painter Blog">
+
+    <title>linux下的sublime安装与配置 - Painter的博客 | Painter Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4002/2017/04/15/sublime-on-linux/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Painter</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+
+
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=linux" title="linux">linux</a>
+                        
+                    </div>
+                    <h1>linux下的sublime安装与配置</h1>
+                    
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by Painter on April 15, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<p>目录</p>
+
+<ul id="markdown-toc">
+  <li><a href="#sublime的安装与配置" id="markdown-toc-sublime的安装与配置">sublime的安装与配置</a>    <ul>
+      <li><a href="#安装sublime-text-3" id="markdown-toc-安装sublime-text-3">安装sublime text 3</a></li>
+      <li><a href="#配置sublime-package-control" id="markdown-toc-配置sublime-package-control">配置sublime Package Control</a></li>
+      <li><a href="#配置sublime中文输入" id="markdown-toc-配置sublime中文输入">配置sublime中文输入</a></li>
+      <li><a href="#配置sublime的markdown插件" id="markdown-toc-配置sublime的markdown插件">配置sublime的markdown插件</a></li>
+      <li><a href="#配置sublime上的java开发环境" id="markdown-toc-配置sublime上的java开发环境">配置sublime上的java开发环境</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="sublime的安装与配置">sublime的安装与配置</h2>
+
+<h3 id="安装sublime-text-3">安装sublime text 3</h3>
+
+<blockquote>
+  <p>下载地址：https://download.sublimetext.com/sublime-text_build-3126_amd64.deb</p>
+</blockquote>
+
+<p>将下载好的文件放在<code class="language-plaintext highlighter-rouge">/home/Downloads/</code>文件夹下。</p>
+
+<p>安装方法：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ctrl+alt+T</code>打开终端</li>
+  <li>进入<code class="language-plaintext highlighter-rouge">/home/Downloads/</code>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> /home/Downloads
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>安装sublime
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>dpkg <span class="nt">-i</span>  sublime-text_build-3126_amd64.deb
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="配置sublime-package-control">配置sublime Package Control</h3>
+
+<p>有两种安装方式：</p>
+
+<ol>
+  <li>命令方式</li>
+</ol>
+
+<p>首先打开sublime，然后按<code class="language-plaintext highlighter-rouge">ctrl+ ~</code>。此时会打开sublime的命令输入栏。</p>
+
+<p>对于sublime3的话，在该栏中输入：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="n">urllib.request</span><span class="p">,</span><span class="n">os</span><span class="p">;</span> <span class="n">pf</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Package Control.sublime-package</span><span class="sh">'</span><span class="p">;</span> <span class="n">ipp</span> <span class="o">=</span> <span class="n">sublime</span><span class="p">.</span><span class="nf">installed_packages_path</span><span class="p">();</span> <span class="n">urllib</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">install_opener</span><span class="p">(</span> <span class="n">urllib</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">build_opener</span><span class="p">(</span> <span class="n">urllib</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nc">ProxyHandler</span><span class="p">())</span> <span class="p">);</span> <span class="nf">open</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">ipp</span><span class="p">,</span> <span class="n">pf</span><span class="p">),</span> <span class="sh">'</span><span class="s">wb</span><span class="sh">'</span><span class="p">).</span><span class="nf">write</span><span class="p">(</span><span class="n">urllib</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">urlopen</span><span class="p">(</span> <span class="sh">'</span><span class="s">http://sublime.wbond.net/</span><span class="sh">'</span> <span class="o">+</span> <span class="n">pf</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">%20</span><span class="sh">'</span><span class="p">)).</span><span class="nf">read</span><span class="p">())</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后回车等待命令执行结束。</p>
+
+<p>在linux下配置有时候会出现一些奇葩的bug。反正就是安装不成功。那就采用下面这种。</p>
+
+<ol>
+  <li>手动安装</li>
+</ol>
+
+<p>浏览器，打开网址<code class="language-plaintext highlighter-rouge">https://github.com/wbond/package_control</code></p>
+
+<p>然后打包下载。</p>
+
+<p>或者直接在下载器中输入下载链接```https://codeload.github.com/wbond/package_control/zip/master``下载即可。</p>
+
+<p>然后将该下载的文件放在sublime下的Installed Packages文件夹下，并重命名为Package Control.sublime-package即可。重启sublime。</p>
+
+<h3 id="配置sublime中文输入">配置sublime中文输入</h3>
+
+<ul>
+  <li>
+    <p>首先假定已经安装好fcix以及搜狗输入法等中文输入法了。</p>
+  </li>
+  <li>
+    <p>然后打开sublime，点击<code class="language-plaintext highlighter-rouge">Preference</code>-&gt; <code class="language-plaintext highlighter-rouge">Browse Packages...</code></p>
+  </li>
+  <li>
+    <p>然后回到该目录的上级目录，即<code class="language-plaintext highlighter-rouge">sublime-text-3</code></p>
+  </li>
+  <li>
+    <p>右击鼠标，点击<code class="language-plaintext highlighter-rouge">open in terminal</code></p>
+  </li>
+  <li>
+    <p>然后，创建文件<code class="language-plaintext highlighter-rouge">sublime_imfix.c</code>。</p>
+  </li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gedit sublime_imfix.c
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>在该新建文件中输入代码：</li>
+</ul>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+</pre></td><td class="rouge-code"><pre><span class="cm">/*
+ * sublime-imfix.c
+ * Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.
+ * By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt; *
+ *
+ * gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+ * LD_PRELOAD=./libsublime-imfix.so sublime_text
+ */</span>
+<span class="cp">#include</span> <span class="cpf">&lt;gtk/gtk.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;gdk/gdkx.h&gt;</span><span class="cp">
+</span>
+<span class="k">typedef</span> <span class="n">GdkSegment</span> <span class="n">GdkRegionBox</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">_GdkRegion</span>
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="n">size</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="n">numRects</span><span class="p">;</span>
+    <span class="n">GdkRegionBox</span> <span class="o">*</span><span class="n">rects</span><span class="p">;</span>
+    <span class="n">GdkRegionBox</span> <span class="n">extents</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">local_context</span><span class="p">;</span>
+
+<span class="kt">void</span>
+<span class="nf">gdk_region_get_clipbox</span> <span class="p">(</span><span class="k">const</span> <span class="n">GdkRegion</span> <span class="o">*</span><span class="n">region</span><span class="p">,</span>
+                        <span class="n">GdkRectangle</span>    <span class="o">*</span><span class="n">rectangle</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">region</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">rectangle</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span>
+    <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span>
+    <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span>
+    <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span>
+    <span class="n">GdkRectangle</span> <span class="n">rect</span><span class="p">;</span>
+    <span class="n">rect</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
+    <span class="n">rect</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
+    <span class="n">rect</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rect</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span>
+
+    <span class="c1">//The caret width is 2;</span>
+    <span class="c1">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">local_context</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">gtk_im_context_set_cursor_location</span><span class="p">(</span><span class="n">local_context</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//this is needed, for example, if you input something in file dialog and return back the edit area</span>
+<span class="c1">//context will lost, so here we set it again.</span>
+
+<span class="k">static</span> <span class="n">GdkFilterReturn</span> <span class="nf">event_filter</span> <span class="p">(</span><span class="n">GdkXEvent</span> <span class="o">*</span><span class="n">xevent</span><span class="p">,</span> <span class="n">GdkEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">im_context</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">XEvent</span> <span class="o">*</span><span class="n">xev</span> <span class="o">=</span> <span class="p">(</span><span class="n">XEvent</span> <span class="o">*</span><span class="p">)</span><span class="n">xevent</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">xev</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">KeyRelease</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">im_context</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">GdkWindow</span> <span class="o">*</span><span class="n">win</span> <span class="o">=</span> <span class="n">g_object_get_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">im_context</span><span class="p">),</span> <span class="s">"window"</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">GDK_IS_WINDOW</span><span class="p">(</span><span class="n">win</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">gtk_im_context_set_client_window</span><span class="p">(</span><span class="n">im_context</span><span class="p">,</span> <span class="n">win</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">GDK_FILTER_CONTINUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">gtk_im_context_set_client_window</span> <span class="p">(</span><span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span>
+                                       <span class="n">GdkWindow</span>    <span class="o">*</span><span class="n">window</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">GtkIMContextClass</span> <span class="o">*</span><span class="n">klass</span><span class="p">;</span>
+    <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">GTK_IS_IM_CONTEXT</span> <span class="p">(</span><span class="n">context</span><span class="p">));</span>
+    <span class="n">klass</span> <span class="o">=</span> <span class="n">GTK_IM_CONTEXT_GET_CLASS</span> <span class="p">(</span><span class="n">context</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">window</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">GDK_IS_WINDOW</span> <span class="p">(</span><span class="n">window</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">g_object_set_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">context</span><span class="p">),</span> <span class="s">"window"</span><span class="p">,</span> <span class="n">window</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">gdk_window_get_width</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">gdk_window_get_height</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">height</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">gtk_im_context_focus_in</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+        <span class="n">local_context</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">gdk_window_add_filter</span> <span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">event_filter</span><span class="p">,</span> <span class="n">context</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>保存关闭。</p>
+
+<ul>
+  <li>然后进入在终端进入该目录<code class="language-plaintext highlighter-rouge">/home/wenbao/.config/sublime-text-3</code>，这里<code class="language-plaintext highlighter-rouge">wenbao</code>是用户名。</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> /home/wenbao/.config/sublime-text-3
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>编译成共享库</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gcc <span class="nt">-shared</span> <span class="nt">-o</span> libsublime-imfix.so sublime-imfix.c  <span class="sb">`</span>pkg-config <span class="nt">--libs</span> <span class="nt">--cflags</span> gtk+-2.0<span class="sb">`</span> <span class="nt">-fPIC</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在执行以上命令时候可能会提示缺少包，可以通过如下命令安装所需要的包即可</p>
+
+<p>命令如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>gtk+-2.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上命令即为安装所缺少编译时需要的的包，执行完以上命令之后，重复执行编译命令即可通过</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gcc <span class="nt">-shared</span> <span class="nt">-o</span> libsublime-imfix.so sublime-imfix.c  <span class="sb">`</span>pkg-config <span class="nt">--libs</span> <span class="nt">--cflags</span> gtk+-2.0<span class="sb">`</span> <span class="nt">-fPIC</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>然后就可以正常编译了。此时，当前目录下产生了共享库<code class="language-plaintext highlighter-rouge">libsublime-imfix.so</code>这个文件。</p>
+
+<ul>
+  <li>移动 libsublime-imfix.so 至 /usr/lib/</li>
+</ul>
+
+<p>命令如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">mv </span>libsublime-imfix.so /usr/lib
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>
+    <p>为了使得该共享库生效，需要修改sublime-text的启动命令。</p>
+  </li>
+  <li>
+    <p>打开终端进入目录<code class="language-plaintext highlighter-rouge">/usr/share/applicaitons</code></p>
+  </li>
+</ul>
+
+<p>命令为：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> /usr/share/applications
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>使用gedit打开并修改sublime-text.desktop</li>
+</ul>
+
+<p>命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>gedit sublime-text.desktop
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>找到三个</p>
+
+<p><code class="language-plaintext highlighter-rouge">Exec=/opt/sublime_text/sublime_text' %F</code></p>
+
+<p>在<code class="language-plaintext highlighter-rouge">Exec=</code>后添加<code class="language-plaintext highlighter-rouge">bash -c 'LD_PRELOAD=/usr/lib/libsublime-imfix.so</code></p>
+
+<p>保存退出即可。</p>
+
+<ul>
+  <li>最后，重启sublime。可以发现已经能输入中文了。</li>
+</ul>
+
+<h3 id="配置sublime的markdown插件">配置sublime的markdown插件</h3>
+
+<p>由于网络问题还是啥的，插件无法使用Package Control来安装。只能手动安装。</p>
+
+<p>安装方法就是去github下载插件源码zip文件，然后将文件后缀名改为<code class="language-plaintext highlighter-rouge">sublime-package</code>，然后放在<code class="language-plaintext highlighter-rouge">/home/.config/sublime-text-3/Installed Packages/</code>下即可。</p>
+
+<p>Note: 经过一系列折腾，我还是被它深深的打败了，最后决定弃坑。不再执着于sublime+markdown。</p>
+
+<p>于是，在网上搜索了另外一个markdown编辑器，即Remarkable，直接点击链接<code class="language-plaintext highlighter-rouge">https://remarkableapp.github.io/files/remarkable_1.87_all.deb</code>下载deb文件，双击安装即可。</p>
+
+<h3 id="配置sublime上的java开发环境">配置sublime上的java开发环境</h3>
+<p>这里可能遇到一个小问题，当Browse Packages失效时候，找不到上面两个目录时，需要使用命令行来操作。</p>
+
+<p>对于有空格的文件路径，空格要使用<code class="language-plaintext highlighter-rouge">\+空格</code>。例如：进入目录<code class="language-plaintext highlighter-rouge">home/wenbao/.config/sublime-text-3/Installed Packages</code></p>
+
+<p>命令为：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> /home/wenbao/.config/sublime-text-3/Installed<span class="se">\ </span>Packages
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/15/java-on-linux/" data-toggle="tooltip" data-placement="top" title="linux下的java安装与配置">
+                        Previous<br>
+                        <span>linux下的java安装与配置</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/16/git-on-linux/" data-toggle="tooltip" data-placement="top" title="linux下的git配置">
+                        Next<br>
+                        <span>linux下的git配置</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E8%AF%AD%E8%A8%80"
+                    title="语言"
+                    rel="9">语言</a>
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E6%97%A5%E8%AF%AD"
+                    title="日语"
+                    rel="9">日语</a>
+        
+                <a data-sort="0035" 
+                    href="/archive/?tag=linux"
+                    title="linux"
+                    rel="7">linux</a>
+        
+                <a data-sort="0039" 
+                    href="/archive/?tag=%E5%8D%9A%E5%AE%A2"
+                    title="博客"
+                    rel="3">博客</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E5%B7%A5%E5%85%B7"
+                    title="工具"
+                    rel="2">工具</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"
+                    title="数据挖掘"
+                    rel="2">数据挖掘</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"
+                    title="数据结构"
+                    rel="2">数据结构</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E9%9D%A2%E7%BB%8F"
+                    title="面经"
+                    rel="2">面经</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=Latex"
+                    title="Latex"
+                    rel="2">Latex</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2017/04/15/sublime-on-linux";
+    var disqus_url = "http://localhost:4002/2017/04/15/sublime-on-linux/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/dearLilian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.linkedin.com/in/wenbao-li-526553ab">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; Painter 2023
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-88738012-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

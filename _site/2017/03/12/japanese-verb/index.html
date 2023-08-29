@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="这里是 @Painter">
+    <meta name="keywords" content="厂里搬砖🧱的">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="日语N5语法：动词分类 - Painter的博客 | Painter Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="">
+    
+    <meta property="article:published_time" content=" 2017-03-12T00:00:00Z">
+    
+    
+    
+    <meta property="article:tag" content="日语">
+    
+    
+    <meta property="og:image" content="http://localhost:4002https://github.com/Huxpro.png">
+    <meta property="og:url" content="http://localhost:4002/2017/03/12/japanese-verb/">
+    <meta property="og:site_name" content="Painter的博客 | Painter Blog">
+
+    <title>日语N5语法：动词分类 - Painter的博客 | Painter Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4002/2017/03/12/japanese-verb/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Painter</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+
+
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E6%97%A5%E8%AF%AD" title="日语">日语</a>
+                        
+                    </div>
+                    <h1>日语N5语法：动词分类</h1>
+                    
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by Painter on March 12, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<ul id="markdown-toc">
+  <li><a href="#动词分类" id="markdown-toc-动词分类">动词分类</a>    <ul>
+      <li><a href="#i类" id="markdown-toc-i类">I类</a></li>
+      <li><a href="#ii类" id="markdown-toc-ii类">II类</a></li>
+      <li><a href="#iii类" id="markdown-toc-iii类">III类</a></li>
+    </ul>
+  </li>
+  <li><a href="#自动词与他动词" id="markdown-toc-自动词与他动词">自动词与他动词</a></li>
+  <li><a href="#动词的形体" id="markdown-toc-动词的形体">动词的形体</a></li>
+  <li><a href="#单词表" id="markdown-toc-单词表">单词表</a></li>
+</ul>
+
+<h3 id="动词分类">动词分类</h3>
+
+<h4 id="i类">I类</h4>
+
+<ul>
+  <li>
+    <p>所以不以る结尾。词尾是「う、く、ぐ、す、つ、ぬ、ぶ、む」</p>
+
+    <blockquote>
+      <p>例如：買（か）う、行（い）く、防（ふせ）ぐ、生（い）かす、立（た）つ、死（し）ぬ</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>以る结尾，倒数第二个假名在「あ」「う」「お」段上。</p>
+
+    <blockquote>
+      <p>例如：帰（かえ）る、撮（と）る、知（し）る、入（はい）る…</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="ii类">II类</h4>
+
+<ul>
+  <li>
+    <p>以る结尾、倒数第二个假名在「い」或「え」段。如果是汉字发音有多个假名但最后一个是「い」或「え」段，则不算II类。</p>
+
+    <blockquote>
+      <p>例如：起（お）きる、食（た）べる、見（み）る、寝（ね）る</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="iii类">III类</h4>
+
+<ul>
+  <li>
+    <p>サ变动词：一般指する，但是する与一些表示动作性的名词可构成サ变复合词。例如，運動する、勉強する…</p>
+  </li>
+  <li>
+    <p>カ变动词：只有一个即：来（く）る，其活用变形比较特殊。</p>
+  </li>
+</ul>
+
+<h3 id="自动词与他动词">自动词与他动词</h3>
+
+<blockquote>
+  <p>根据动词是否需要宾语，日语动词又可以分为自动词和他动词。自动词表示自发的、不掺杂主观意图的动作、行为，一般情况下格助词要用「が」
+他动词需要宾语才能完整地表达主语的动作或作用，格助词要用「を」。有一些动词既可作自动词又可作他动词。</p>
+</blockquote>
+
+<p>例词：</p>
+
+<ul>
+  <li>
+    <p>没有对应他动词的自动词：ある、いる、行く、来る</p>
+  </li>
+  <li>
+    <p>没有对应自动词的他动词：話（はな）す、読（よ）む、書（か）く、飲（の）む</p>
+  </li>
+  <li>
+    <p>既可以作自动词又可以作他动词的单词：開く、休む、吹く、笑う、終わる</p>
+  </li>
+</ul>
+
+<h3 id="动词的形体">动词的形体</h3>
+
+<blockquote>
+  <p>动词有普通形与敬体形，而他们各自又有现在时肯定形、现在时否定形、过去时肯定形、过去时否定形，因此相应的有很多动词变形。下一次再学习这些变形规则。</p>
+</blockquote>
+
+<h3 id="单词表">单词表</h3>
+
+<p>N5常用动词单词表（你能区分出他们属于哪一类吗？）</p>
+
+<table>
+   <tr>
+      <th>动词原形</th>
+      <th>假名</th>
+      <th>中文意思</th>
+   </tr>
+   <tr>
+      <td>ある</td>
+      <td>ある</td>
+      <td>存在，有（无生命的物体）</td>
+   </tr>
+   <tr>
+      <td>いる</td>
+      <td>いる</td>
+      <td>存在，有（有生命的物或人）</td>
+   </tr>
+   <tr>
+      <td>行く</td>
+      <td>いく</td>
+      <td>前进，去，到，往</td>
+   </tr>
+   <tr>
+      <td>来る</td>
+      <td>くる</td>
+      <td>来，到来，发生，引起</td>
+   </tr>
+   <tr>
+      <td>話す</td>
+      <td>はなす</td>
+      <td>说话，讲，谈话，商量，说明，告诉；说（某种语言）</td>
+   </tr>
+   <tr>
+      <td>読む</td>
+      <td>よむ</td>
+      <td>读，看，阅读</td>
+   </tr>
+   <tr>
+      <td>書く</td>
+      <td>かく</td>
+      <td>写，画</td>
+   </tr>
+   <tr>
+      <td>飲む</td>
+      <td>のむ</td>
+      <td>喝，咽，吃；吞下去；吸（烟）</td>
+   </tr>
+   <tr>
+      <td>走る</td>
+      <td>はしる</td>
+      <td>跑；行驶；投奔，跑向，逃往</td>
+   </tr>
+   <tr>
+      <td>開く</td>
+      <td>ひらく</td>
+      <td>开，开着，打开</td>
+   </tr>
+   <tr>
+      <td>休む</td>
+      <td>やすむ</td>
+      <td>休息，中止工作、动作等；停歇，暂停；睡，卧，安歇，就寝；缺勤，缺席</td>
+   </tr>
+   <tr>
+      <td>吹く</td>
+      <td>ふく</td>
+      <td>风吹，风刮</td>
+   </tr>
+   <tr>
+      <td>笑う</td>
+      <td>わらう</td>
+      <td>笑；花开，开绽</td>
+   </tr>
+   <tr>
+      <td>終わる</td>
+      <td>おわる</td>
+      <td>完，完毕，结束，终了；死，死亡；以…告终，以…结束</td>
+   </tr>
+   <tr>
+      <td>買う</td>
+      <td>かう</td>
+      <td>买</td>
+   </tr>
+   <tr>
+      <td>行く</td>
+      <td>いく</td>
+      <td>去，往，到</td>
+   </tr>
+   <tr>
+      <td>防ぐ</td>
+      <td>ふせぐ</td>
+      <td>防卫，防守，防御；防备，预防</td>
+   </tr>
+   <tr>
+      <td>生かす</td>
+      <td>いかす</td>
+      <td>使其发挥作用；使其继续生存</td>
+   </tr>
+   <tr>
+      <td>活かす</td>
+      <td>いかす</td>
+      <td>恢复删除的字句；有效利用；使…活了；发挥长处</td>
+   </tr>
+   <tr>
+      <td>立つ</td>
+      <td>たつ</td>
+      <td>立，站；冒，升，起；离开，退；出发，动身</td>
+   </tr>
+   <tr>
+      <td>死ぬ</td>
+      <td>しぬ</td>
+      <td>死，死亡；死板；不起作用</td>
+   </tr>
+   <tr>
+      <td>帰る</td>
+      <td>かえる</td>
+      <td>回归，回来；回去，归去</td>
+   </tr>
+   <tr>
+      <td>撮る</td>
+      <td>とる</td>
+      <td>摄影，照相，拍</td>
+   </tr>
+   <tr>
+      <td>知る</td>
+      <td>しる</td>
+      <td>知道，知晓；懂得，理解；认识，熟识；记得；经历，体验</td>
+   </tr>
+   <tr>
+      <td>入る</td>
+      <td>はいる</td>
+      <td>入，进，进入</td>
+   </tr>
+   <tr>
+      <td>起きる</td>
+      <td>おきる</td>
+      <td>起床，不睡</td>
+   </tr>
+   <tr>
+      <td>食べる</td>
+      <td>たべる</td>
+      <td>吃，生活</td>
+   </tr>
+   <tr>
+      <td>見る</td>
+      <td>みる</td>
+      <td>看，观察</td>
+   </tr>
+   <tr>
+      <td>寝る</td>
+      <td>ねる</td>
+      <td>躺下，睡眠</td>
+   </tr>
+   <tr>
+      <td>運動する</td>
+      <td>うんどうする</td>
+      <td>运动</td>
+   </tr>
+   <tr>
+      <td>勉強する</td>
+      <td>べんきょうする</td>
+      <td>学习</td>
+   </tr>
+</table>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/03/11/cin-and-cout/" data-toggle="tooltip" data-placement="top" title="C++ cin 与cout输入与输出浅析">
+                        Previous<br>
+                        <span>C++ cin 与cout输入与输出浅析</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/03/17/to-find-a-job/" data-toggle="tooltip" data-placement="top" title="我的秋招及一些建议（内含面经）">
+                        Next<br>
+                        <span>我的秋招及一些建议（内含面经）</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E8%AF%AD%E8%A8%80"
+                    title="语言"
+                    rel="9">语言</a>
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E6%97%A5%E8%AF%AD"
+                    title="日语"
+                    rel="9">日语</a>
+        
+                <a data-sort="0035" 
+                    href="/archive/?tag=linux"
+                    title="linux"
+                    rel="7">linux</a>
+        
+                <a data-sort="0039" 
+                    href="/archive/?tag=%E5%8D%9A%E5%AE%A2"
+                    title="博客"
+                    rel="3">博客</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E5%B7%A5%E5%85%B7"
+                    title="工具"
+                    rel="2">工具</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"
+                    title="数据挖掘"
+                    rel="2">数据挖掘</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"
+                    title="数据结构"
+                    rel="2">数据结构</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E9%9D%A2%E7%BB%8F"
+                    title="面经"
+                    rel="2">面经</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=Latex"
+                    title="Latex"
+                    rel="2">Latex</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2017/03/12/japanese-verb";
+    var disqus_url = "http://localhost:4002/2017/03/12/japanese-verb/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/dearLilian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.linkedin.com/in/wenbao-li-526553ab">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; Painter 2023
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-88738012-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

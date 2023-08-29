@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="这里是 @Painter">
+    <meta name="keywords" content="厂里搬砖🧱的">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="百度数据挖掘实习生一面 - Painter的博客 | Painter Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="目录
+">
+    
+    <meta property="article:published_time" content=" 2016-08-04T00:00:00Z">
+    
+    
+    
+    <meta property="article:tag" content="面经">
+    
+    
+    <meta property="og:image" content="http://localhost:4002https://github.com/Huxpro.png">
+    <meta property="og:url" content="http://localhost:4002/2016/08/04/BaiduInterviewAboutDataMining/">
+    <meta property="og:site_name" content="Painter的博客 | Painter Blog">
+
+    <title>百度数据挖掘实习生一面 - Painter的博客 | Painter Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4002/2016/08/04/BaiduInterviewAboutDataMining/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Painter</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+
+
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E9%9D%A2%E7%BB%8F" title="面经">面经</a>
+                        
+                    </div>
+                    <h1>百度数据挖掘实习生一面</h1>
+                    
+                    <h2 class="subheading"></h2>
+                    <span class="meta">Posted by Painter on August 4, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h2 id="目录">目录</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#目录" id="markdown-toc-目录">目录</a>    <ul>
+      <li><a href="#一自我介绍" id="markdown-toc-一自我介绍">一：自我介绍</a></li>
+      <li><a href="#二针对项目问一些细节" id="markdown-toc-二针对项目问一些细节">二：针对项目，问一些细节</a></li>
+      <li><a href="#三数据挖掘算法其实这块主要和项目结合起来问的" id="markdown-toc-三数据挖掘算法其实这块主要和项目结合起来问的">三：数据挖掘算法，其实这块主要和项目结合起来问的。</a></li>
+      <li><a href="#四常用优化算法" id="markdown-toc-四常用优化算法">四：常用优化算法</a></li>
+      <li><a href="#五java知识考核和其他公司的有点混淆了记不清楚哪个是哪个公司考的了大体是这样子的" id="markdown-toc-五java知识考核和其他公司的有点混淆了记不清楚哪个是哪个公司考的了大体是这样子的">五：java知识考核（和其他公司的有点混淆了，记不清楚哪个是哪个公司考的了）大体是这样子的</a></li>
+      <li><a href="#六python" id="markdown-toc-六python">六：python</a></li>
+      <li><a href="#七linux" id="markdown-toc-七linux">七：linux</a></li>
+      <li><a href="#八好像没有其他方面的了" id="markdown-toc-八好像没有其他方面的了">八：好像没有其他方面的了</a></li>
+      <li><a href="#结束" id="markdown-toc-结束">结束</a></li>
+    </ul>
+  </li>
+</ul>
+
+<ul>
+  <li>时间：2016.8.4</li>
+  <li>岗位：数据挖掘实习生</li>
+  <li>部门：系统部</li>
+</ul>
+
+<p>简介：面试主要围绕项目，数据挖掘算法，java的一些特性，以及周边python, linux等的了解程度。整个过程面试官非常nice，气氛很融洽。</p>
+
+<h3 id="一自我介绍">一：自我介绍</h3>
+
+<h3 id="二针对项目问一些细节">二：针对项目，问一些细节</h3>
+
+<p>主要包括，这个项目主要是干什么的，你在里面负责了什么，要能把具体过程说清楚。然后里面涉及的具体技术点要懂得原理。</p>
+
+<h3 id="三数据挖掘算法其实这块主要和项目结合起来问的">三：数据挖掘算法，其实这块主要和项目结合起来问的。</h3>
+
+<p>主要从经典的几大算法，比如：</p>
+
+<ul>
+  <li>SVM，说明它的详细原理，主要从分类平面，到求两类间的最大间隔，到转化为求间隔分之一，等优化问题，然后就是优化问题的解决办法，首先是用拉格拉日乘子把约束优化转化为无约束优化，对各个变量求导令其为零，得到的式子带入拉格朗日式子从而转化为对偶问题， 最后再利用SMO（序列最小优化）来解决这个对偶问题。说明它与其他分类器对比的优缺点，它的速度等等。</li>
+  <li>logistic回归，原理，它是怎么从回归到分类的，它的优缺点，能不能处理非线性分类，与SVM对比有什么优缺点。</li>
+  <li>贝叶斯分类，这是一类分类方法，主要代表是朴素贝叶斯，朴素贝叶斯的原理，重点在假设各个属性类条件独立。然后能根据贝叶斯公式具体推导。考察给你一个问题，如何利用朴素贝叶斯分类去分类，比如：给你一个人的特征，判断是男是女，比如身高，体重，头发长度等特征的的数据，那么你要能推到这个过程。给出最后的分类器公式。</li>
+  <li>项目中涉及到频繁模式挖掘，于是问了一下如何实现的？ 用的是 Apriori算法，描述他的原理过程，关键字眼：支持度，支持度计数，k项候选频繁项集，怎么从k项到k+1项等，连接剪枝过程。</li>
+</ul>
+
+<h3 id="四常用优化算法">四：常用优化算法</h3>
+
+<ul>
+  <li>梯度下降法：又有随机梯度下降和负梯度下降</li>
+  <li>牛顿法</li>
+</ul>
+
+<p>主要是问了各自的优缺点，速度，能不能得到全局最优解，牛顿法的二次收敛等</p>
+
+<h3 id="五java知识考核和其他公司的有点混淆了记不清楚哪个是哪个公司考的了大体是这样子的">五：java知识考核（和其他公司的有点混淆了，记不清楚哪个是哪个公司考的了）大体是这样子的</h3>
+
+<ul>
+  <li>进程与线程的区别，线程的同步问题，两个线程访问一个临界资源该怎么做？线程什么时候终止？（还问到一个daemon函数，我当时完全不知道这是什么）</li>
+  <li>hashmap与hashtable区别</li>
+  <li>String 与StringBuffer的区别，有什么好处？</li>
+  <li>问了用过java的数据挖掘，数据分析包吗？用过哪些？</li>
+  <li>还问了一个异常处理机制，，try和finally里面都有return的时候，会不会执行finally的return。</li>
+  <li>final的作用。。。</li>
+</ul>
+
+<h3 id="六python">六：python</h3>
+
+<ul>
+  <li>了解python吗？了解一些，平时偶尔看看别人写的程序。</li>
+  <li>用过什么python的数据分析包？ 什么panda呀，。。。我说我就用过scikit learn, 还有两个网络图的包networkx, igraph。。。</li>
+  <li>基本语法都知道吧？恩都知道。不过不是很熟，要是工作需要的话，可以尽快入门。</li>
+</ul>
+
+<p>本人对python的了解也仅限于此，所以面试官没有继续问了。</p>
+
+<h3 id="七linux">七：linux</h3>
+
+<p>（我简历上写的也是了解linux的基本命令）</p>
+
+<ul>
+  <li>linux了解多吗？不多。。</li>
+  <li>比如文件权限命令， chmod, chrown， 777什么的了解吗？ 恩了解一些，只知道是关于用户组，用户，还是啥的对文件的读写，执行权限，具体没太记得各种命令的具体含义。。</li>
+  <li>那关于创建文件，移动删除这些命令呢？恩这个知道，比如创建文件夹mkdir,  创建文件的话我平时直接用gedit， 移动 mv（面试官打断，，不让我继续说了）</li>
+</ul>
+
+<h3 id="八好像没有其他方面的了">八：好像没有其他方面的了</h3>
+
+<p>后面就是问了问实习时间，什么时候能来，我就说8月10号以后。。。然后面试官就说我这里没什么问题了，你有什么问题？我就开问了两个。</p>
+
+<ol>
+  <li>你们这边具体是做哪些项目的？ 答曰：我们这边是百度的数据中心，基本就是处理数据的安全，以及一些偏底层的东西，会去分析一些数据故障还是啥 。。。。（记不清了，反正当时就想，哇这和我之前做的那个关联规则挖掘根源分析的好像啊哈哈哈）</li>
+  <li>你们是哪个部门？我之前投递了两个内推，不知道是哪个了。。答曰：我们部门名称就做系统部。。。</li>
+  <li>其他好像也没问了。。。</li>
+</ol>
+
+<h3 id="结束">结束</h3>
+
+<p>总共1个小时，到此结束。。。。</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/15/SortAlgorithm/" data-toggle="tooltip" data-placement="top" title="数据结构之排序算法(java)">
+                        Previous<br>
+                        <span>数据结构之排序算法(java)</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/09/linkedlist/" data-toggle="tooltip" data-placement="top" title="数据结构之链表大解析(java)">
+                        Next<br>
+                        <span>数据结构之链表大解析(java)</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E8%AF%AD%E8%A8%80"
+                    title="语言"
+                    rel="9">语言</a>
+        
+                <a data-sort="0033" 
+                    href="/archive/?tag=%E6%97%A5%E8%AF%AD"
+                    title="日语"
+                    rel="9">日语</a>
+        
+                <a data-sort="0035" 
+                    href="/archive/?tag=linux"
+                    title="linux"
+                    rel="7">linux</a>
+        
+                <a data-sort="0039" 
+                    href="/archive/?tag=%E5%8D%9A%E5%AE%A2"
+                    title="博客"
+                    rel="3">博客</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E5%B7%A5%E5%85%B7"
+                    title="工具"
+                    rel="2">工具</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"
+                    title="数据挖掘"
+                    rel="2">数据挖掘</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"
+                    title="数据结构"
+                    rel="2">数据结构</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=%E9%9D%A2%E7%BB%8F"
+                    title="面经"
+                    rel="2">面经</a>
+        
+                <a data-sort="0040" 
+                    href="/archive/?tag=Latex"
+                    title="Latex"
+                    rel="2">Latex</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2016/08/04/BaiduInterviewAboutDataMining";
+    var disqus_url = "http://localhost:4002/2016/08/04/BaiduInterviewAboutDataMining/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/dearLilian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.linkedin.com/in/wenbao-li-526553ab">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; Painter 2023
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-88738012-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
