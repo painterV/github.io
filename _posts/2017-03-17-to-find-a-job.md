@@ -151,7 +151,7 @@ tag: 面经
 
 附上我的秋招简历（只作为参考），并不是非常好的简历。
 
-<center><img src="/images/posts/job/2.png" width = "70%"/></center>
+<center><img src="/img/in-post/job/2.png" width = "70%"/></center>
 
 一般本科的话最好写一页，硕士能一页则一页，不能则两页。再多了就弊大于利了。
 
@@ -194,7 +194,7 @@ tag: 面经
 - 关于简历的字体，别太大或太小，正常字体就行，根据内容来调整。
 - 几块内容的参考排序：实习》项目》专业技能》奖励
 - 关于比赛奖励，国家级还是省级还是校级以及几等奖要说清楚。团队的要说清楚你是第几位，主要负责啥（比如数学建模，编程？论文？算法设计？）。
-- 关于项目经验的描述：下面是来自“互联网校招”聊天记录：<center><img src="/images/posts/job/3.jpg" width = "30%"/></center>
+- 关于项目经验的描述：下面是来自“互联网校招”聊天记录：<center><img src="/img/in-post/job/3.jpg" width = "30%"/></center>
 
 
 最后的建议：
@@ -233,7 +233,7 @@ tag: 面经
 关于这一块的训练主要是一下几个途径：
 - [牛客网刷题](https://www.nowcoder.com/)
 > 牛客网其实更多是一个资料整合的网站，包含了笔试题，编程题，还有面经，招聘信息等。
-同时，很多公司的线上笔试平台也是牛客。<center><img src="/images/posts/job/onlineProgram.png" width = "70%"/></center>
+同时，很多公司的线上笔试平台也是牛客。<center><img src="/img/in-post/job/onlineProgram.png" width = "70%"/></center>
 - [leetcode刷题](https://leetcode.com/)
 > 专业的刷题oj。
 - 线下自己的积累
@@ -245,7 +245,7 @@ tag: 面经
 
 性格测试包括智力和性格两个方面。
 - 智力：一般就是写图形啊，排列组合啊，等之类的题。比如：
-<center><img src="/images/posts/job/iqtest.png" width = "70%"/></center>
+<center><img src="/img/in-post/job/iqtest.png" width = "70%"/></center>
 - 性格：主要就是围绕为人处世，对待事情的态度，积极乐观等态度。
 
 大家可以自行在网上找一些这类题目做一做。
@@ -581,7 +581,7 @@ hadoop了解情况。
 
 百度完全是各种运气的累加，缘分到了。
 
-<center><img src="/images/posts/job/baidu.jpg" width = "30%"/></center>
+<center><img src="/img/in-post/job/baidu.jpg" width = "30%"/></center>
 
 中兴则是xx的力推，与实验室强有力的背景。
 
@@ -591,7 +591,7 @@ hadoop了解情况。
 ## 资料链接
 
 - 互联网校招微信公众号：hlwxz123
-- [面试机器学习数据挖掘岗位时遇到的各种问题](./images/posts/job/面试机器学习、大数据岗位时遇到的各种问题.pdf)
+- [面试机器学习数据挖掘岗位时遇到的各种问题](./img/in-post/job/面试机器学习、大数据岗位时遇到的各种问题.pdf)
 
 
 本文结束，由于文笔有限，请谅解我的各种不当描述。另外本文引用了来自互联网校招微信公众号以及微信群中的部分内容。

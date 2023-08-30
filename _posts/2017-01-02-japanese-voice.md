@@ -67,4 +67,4 @@ tag: 日语
 
 最后补充图。网上随便一搜一大堆。
 
-![](/images/posts/japanese/yindiao.jpg)
+![](/img/in-post/japanese/yindiao.jpg)

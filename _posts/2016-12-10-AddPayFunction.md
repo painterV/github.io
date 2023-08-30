@@ -24,7 +24,7 @@ tag: 博客
 
 <a href="https://github.com/dearLilian/dearLilian.github.io/blob/master/_includes/dashang.html">点击这里</a>,下载打赏的代码。像本博客，我将该代码dashang.html放在_include文件夹下，并在_layouts文件夹下的post.html中加入代码：
 
-![](/images/posts/dse/dscode.png)
+![](/img/in-post/dse/dscode.png)
 
 分析功能的代码，新建html文件，命名为：share.html，添加以下内容：
 
@@ -45,6 +45,6 @@ tag: 博客
 
 ***********下面是图片*******************
 
-![评论和打赏效果](/images/posts/dse/dse.png)
+![评论和打赏效果](/img/in-post/dse/dse.png)
 
 ************上面是图片******************
