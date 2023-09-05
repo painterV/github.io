@@ -1,16 +1,13 @@
 ---
 layout: post
-title: English Interview Self Introduction
-date: 2023-06-08
-tag: Interview
+title: "English Interview Self Introduction"
+subtitle: "一些面试的个人总结"
+author: "Painter"
+header-img: "img/post-bg-2015.jpg"
+date: 2023-06-08 12:00:00
+tag: 
+    - Interview
 ---
-
-## Contents
-
-* TOC
-{:toc}
-
-
 ## Framework
 
 ### Princeples:
