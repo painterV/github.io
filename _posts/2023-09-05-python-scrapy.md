@@ -1,9 +1,5 @@
 ---
 
-
----
----
-
 title:"scrapy爬虫入门"
 
 subtitle:"使用框架进行爬虫"
