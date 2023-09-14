@@ -1,19 +1,16 @@
 ---
-title:"python中的datetime/time库学习"
+title: "python中的有关时间的库的学习"
 
-subtitle:"使用datetime/time库来操作各种时间的格式"
+subtitle: "datetime/time/calendar模块"
 
-author:"Painter"
+author: "Painter"
 
-header-img:"img/post-bg-2015.jpg"
-
-date:2023-09-11 16:13:00
+date: 2023-09-11 16:13:00
 
 tag:
     - PainterPython
     - Python
 ---
-
 
 # 为什么学datetime/time库
 
@@ -21,7 +18,6 @@ tag:
 
 1. 把"2023-09-11 13:23:40"转化为时间戳。
 2. 把时间戳的时间转为一个指定格式的字符串时间。
-
 
 ```python
 import time
@@ -77,5 +73,10 @@ print(t_stamps)
 
 下面我们分别来看下这几个类以及他们的主要函数
 
+# time库
+
+[官方文档](https://docs.python.org/3/library/time.html)
+
+该模块提供了各种与时间相关的函数
 
 ## datetime.date
